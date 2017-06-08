@@ -2823,7 +2823,14 @@ class ManagerCLI(CLI):
 
     def main(self):
         managerlib.check_identity_cert_perms()
-        return CLI.main(self)
+        ret = CLI.main(self)
+        # Try to flush all outputs, see BZ: 1350402
+        try:
+            sys.stdout.flush()
+            sys.stderr.flush()
+        except IOError as err:
+            log.error("Error: Unable to print data to stdout/stderr output during exit process: %s" % err)
+        return ret
 
 
 if __name__ == "__main__":
