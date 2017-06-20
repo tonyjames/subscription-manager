@@ -2828,8 +2828,8 @@ class ManagerCLI(CLI):
         try:
             sys.stdout.flush()
             sys.stderr.flush()
-        except IOError as err:
-            log.error("Error: Unable to print data to stdout/stderr output during exit process: %s" % err)
+        except IOError as io_err:
+            log.error("Error: Unable to print data to stdout/stderr output during exit process: %s" % io_err)
         return ret
 
 
